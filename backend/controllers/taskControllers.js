@@ -21,7 +21,7 @@ export const addTask = async (request, response) => {
       priority,
       status,
       due_date,
-      created_at,
+      created_at || new Date().toISOString(),
     ]);
 
     response.status(200);
@@ -84,9 +84,6 @@ export const updateTask = async (request, response) => {
       return;
     }
 
-    // Optionally validate status and priority again here or rely on middleware
-
-    // Build dynamic query parts for only fields provided
     const updates = [];
     const params = [];
 

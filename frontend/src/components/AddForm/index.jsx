@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Modal from "react-modal";
+
+Modal.setAppElement("#root");
+
+import axios from "axios";
 
 import "./index.css";
 
@@ -27,13 +31,28 @@ const AddForm = () => {
   const [addTask, setAddTask] = useState({
     title: "",
     description: "",
-    date: "",
+    due_date: "",
     priority: "Low",
     status: "Open",
   });
 
+  const resetForm = () => {
+    setAddDate("");
+    setAddTitle("");
+    setAddDescription("");
+    setAddPriority("Low");
+  };
+
+  useEffect(() => {
+    if (!addTask || !addTask.title || !addTask.due_date) return;
+
+    const url = "http://localhost:3000/api/tasks";
+
+    axios.post(url, addTask);
+    resetForm();
+  }, [addTask]);
+
   const onHandleModel = () => {
-    console.log("hello");
     setAddModel((pre) => !pre);
   };
 
@@ -51,6 +70,22 @@ const AddForm = () => {
 
   const onHandlePriority = (e) => {
     setAddPriority(e.target.value);
+  };
+
+  const onHandleData = () => {
+    if (addTitle && addDescription && addDate && addPriority) {
+      const taskObj = {
+        title: addTitle,
+        description: addDescription,
+        due_date: addDate,
+        priority: addPriority,
+        status: "Open",
+      };
+
+      setAddTask(taskObj);
+    } else {
+      alert("Please Check input field!");
+    }
   };
 
   return (
@@ -134,7 +169,11 @@ const AddForm = () => {
             >
               Cancle
             </button>
-            <button className="add-form-add-btn" type="button">
+            <button
+              onClick={onHandleData}
+              className="add-form-add-btn"
+              type="button"
+            >
               Add Task
             </button>
           </div>

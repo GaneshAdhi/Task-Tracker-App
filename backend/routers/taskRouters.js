@@ -2,7 +2,6 @@ import express from "express";
 import {
   checkRequestsQueries,
   checkRequestsBody,
-  checkUpdateBody,
 } from "../middleware/checkTasks.js";
 import {
   addTask,
@@ -17,7 +16,7 @@ const routers = express.Router();
 
 routers.post("/api/tasks", checkRequestsBody, addTask);
 routers.get("/api/tasks/", checkRequestsQueries, getTasks);
-routers.patch("/api/tasks/:id", checkUpdateBody, updateTask);
+routers.patch("/api/tasks/:id", checkRequestsBody, updateTask);
 routers.get("/api/insights", getInsights);
 
 export default routers;

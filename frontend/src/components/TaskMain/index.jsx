@@ -4,7 +4,6 @@ import Header from "../Header";
 import Sort from "../Sort";
 import TaskView from "../TaskView";
 import AddForm from "../AddForm";
-import UpdateForm from "../UpdateForm";
 //import Inslight from "../Inslight";
 
 const TaskMain = () => {
@@ -14,7 +13,6 @@ const TaskMain = () => {
       <Sort />
       <TaskView />
       <AddForm />
-      <UpdateForm />
     </div>
   );
 };

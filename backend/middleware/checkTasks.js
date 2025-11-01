@@ -1,6 +1,4 @@
-import format from "date-fns/format";
-import isValid from "date-fns/isValid";
-import toDate from "date-fns/toDate";
+import { format, parseISO, isValid } from "date-fns";
 
 export const checkRequestsQueries = async (request, response, next) => {
   const { search_q, priority, status, date } = request.query;
@@ -66,102 +64,48 @@ export const checkRequestsQueries = async (request, response, next) => {
   next();
 };
 
-export const checkRequestsBody = (request, response, next) => {
-  const {
-    title = request.title,
-    description = request.description,
-    priority = request.priority,
-    due_date = request.due_date,
-    status = request.status,
-    created_at = request.created_at,
-  } = request.body || {};
+export const checkRequestsBody = async (request, response, next) => {
+  const { title, description, priority, due_date, status, created_at } =
+    request.body;
 
-  const { taskid } = request.params;
-
-  if (priority !== undefined) {
-    const priorityArray = ["High", "Medium", "Low"];
-    const priorityIsInArray = priorityArray.includes(priority);
-    if (priorityIsInArray === true) {
-      request.priority = priority;
-    } else {
-      response.status(400);
-      response.send("Invalid Todo Priority");
-      return;
-    }
-  }
-
-  if (status !== undefined) {
-    const statusArray = ["Open", "In Progress", "Done"];
-    const statusIsInArray = statusArray.includes(status);
-    if (statusIsInArray === true) {
-      request.status = status;
-    } else {
-      response.status(400);
-      response.send("Invalid Todo Status");
-      return;
-    }
-  }
-
-  if (due_date !== undefined) {
-    try {
-      const myDate = new Date(due_date);
-      const formatedDate = format(new Date(due_date), "yyyy-MM-dd");
-      console.log(formatedDate);
-      const result = toDate(new Date(formatedDate));
-      const isValidDate = isValid(result);
-      console.log(isValidDate);
-      console.log(isValidDate);
-      if (isValidDate === true) {
-        request.due_date = formatedDate;
-      } else {
-        response.status(400);
-        response.send("Invalid Due Date");
-        return;
-      }
-    } catch (e) {
-      response.status(400);
-      response.send("Invalid Due Date");
-      return;
-    }
-  }
-  request.title = title;
-  request.description = description;
-  request.created_at = created_at;
-
-  request.taskid = taskid;
-
-  next();
-};
-
-export const checkUpdateBody = (request, response, next) => {
-  const { status, priority } = request.body;
-
-  const validStatuses = ["Open", "In Progress", "Done"];
-  const validPriorities = ["High", "Medium", "Low"];
-
-  // If neither status nor priority is provided, reject request
-  if (status === undefined && priority === undefined) {
-    response.status(400).send("Provide status or priority to update");
+  if (title !== undefined) {
+    request.title = title;
+  } else {
+    response.status(400).send("Invalid Title!");
     return;
   }
 
-  // Validate status if provided
-  if (status !== undefined) {
-    if (!validStatuses.includes(status)) {
-      response.status(400).send("Invalid Status value");
-      return;
-    }
-    request.status = status; // pass validated value
+  if (priority !== undefined) {
+    request.priority = priority;
+  } else {
+    response.status(400).send("Invalid Priority!");
+    return;
   }
 
-  // Validate priority if provided
-  if (priority !== undefined) {
-    if (!validPriorities.includes(priority)) {
-      response.status(400).send("Invalid Priority value");
+  if (due_date !== undefined) {
+    console.log("Validating due_date:", due_date);
+    try {
+      const parsed = parseISO(due_date);
+      if (!isValid(parsed)) {
+        response.status(400).send("Invalid Due Date");
+        return;
+      }
+      request.due_date = format(parsed, "yyyy-MM-dd");
+    } catch (e) {
+      response.status(400).send("Invalid Due Date");
       return;
     }
-    request.priority = priority; // pass validated value
   }
+
+  if (status !== undefined) {
+    request.status = status;
+  } else {
+    response.status(400).send("Invalid Status!");
+    return;
+  }
+
+  request.description = description;
+  request.created_at = created_at;
 
   next();
 };
