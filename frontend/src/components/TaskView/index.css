@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+.taskview-main-container {
+  background-color: #222f41;
+  max-width: 1200px;
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 13px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 1201px) {
+  .taskview-main-container {
+    width: 60%;
+    margin-left: 1rem;
+  }
+}
+
+.taskview-task-card {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.3rem;
+  border-radius: 8px;
+}
+
+.border-low-tag {
+  border-left: 0.5rem solid #2abe5f;
+}
+
+.border-medium-tag {
+  border-left: 0.5rem solid #d5a331;
+}
+
+.border-high-tag {
+  border-left: 0.5rem solid #c53b3e;
+}
+
+.taskview-task-card-first-card {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  justify-content: space-between;
+}
+
+.taskview-task-card-first-card-small-card-first {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.taskview-task-card-first-card-small-card-first-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #d0d7e0;
+}
+
+.taskview-task-card-first-card-small-card-first-decription {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #7a7d81;
+}
+
+.taskview-task-card-first-card-small-card-second {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.icon-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: #7a7d81;
+}
+
+.icon-edit{
+  transition: all 0.5s;
+}
+
+.icon-edit:hover{
+  color: #352760;
+}
+
+.icon-delete{
+  transition: all 0.5s;
+}
+
+.icon-delete:hover{
+  color: #352760;
+}
+
+.taskview-task-card-first-card-third {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.taskview-task-card-first-card-third-tag {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 20px;
+}
+
+.low-tag {
+  color: #90f0b1;
+  background-color: #2abe5f;
+}
+
+.medium-tag {
+  color: #cabea2;
+  background-color: #d5a331;
+}
+
+.high-tag {
+  color: #f5acad;
+  background-color: #c53b3e;
+}
+
+.taskview-task-card-first-card-third-date {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #7a7d81;
+}
+
+.over-due-date {
+  color: #c53b3e;
+  font-weight: 700;
+}
+
+.input-card-edit {
+  background-color: #8faad1;
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  outline: none;
+  border-radius: 7px;
+  border: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #cfe0f7;
+}
+
+.no-task-test {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #7a7d81;
+  text-align: center;
+  margin-top: 5rem;
+}
+
+@media screen and (min-width: 1201px) {
+  .no-task-test {
+    width: 60%;
+  }
+}
